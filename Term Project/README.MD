@@ -7,9 +7,10 @@
 ---------
 게임 소개 
 ---------
+![Image01](https://imgur.com/67nSN7A.png)
 + 게임 : 드래곤 플라이트 모작
 + 장르 : 2D 슈팅 게임
-![Image01](https://imgur.com/67nSN7A.png)
+
 
 ---------
 게임 컨셉 (High concept 및 핵심 메카닉)
@@ -31,12 +32,15 @@
 	+ 무적 : 일정 시간 동안 몬스터의 공격을 무시한다.
 
 ![Image04](https://imgur.com/F7qyTMI.png)
+
 ![Image05](https://imgur.com/JHwmOiw.png)
+
 2. 2가지의 테마 (2가지의 스테이지)
 	+ 초원 테마
 	+ 사막 테마		
 
 ![Image06](https://imgur.com/uOX2u5C.png)
+
 3. 기본 몬스터 2종, 보스 몬스터 2종
 
 ---------
@@ -45,7 +49,7 @@
 ![Image07](https://imgur.com/LvvMeZu.png)
 
 ---------
-4. 개발 일정
+개발 일정
 ---------
 ![Image08](https://imgur.com/VQZPi04.png)
 
