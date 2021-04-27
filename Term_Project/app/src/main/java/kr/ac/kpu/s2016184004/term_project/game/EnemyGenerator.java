@@ -5,8 +5,8 @@ import android.util.Log;
 
 import java.util.Random;
 
-import kr.ac.kpu.game.s1234567.dragonflight.framework.GameObject;
-import kr.ac.kpu.game.s1234567.dragonflight.ui.view.GameView;
+import kr.ac.kpu.s2016184004.term_project.framework.GameObject;
+import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
 
 public class EnemyGenerator implements GameObject {
 

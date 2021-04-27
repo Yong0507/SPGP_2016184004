@@ -3,10 +3,11 @@ package kr.ac.kpu.s2016184004.term_project.game;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-import kr.ac.kpu.game.s1234567.dragonflight.R;
-import kr.ac.kpu.game.s1234567.dragonflight.framework.BoxCollidable;
-import kr.ac.kpu.game.s1234567.dragonflight.framework.GameBitmap;
-import kr.ac.kpu.game.s1234567.dragonflight.framework.GameObject;
+
+import kr.ac.kpu.s2016184004.term_project.R;
+import kr.ac.kpu.s2016184004.term_project.framework.BoxCollidable;
+import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;
+import kr.ac.kpu.s2016184004.term_project.framework.GameObject;
 
 public class Player implements GameObject, BoxCollidable {
     private static final String TAG = Player.class.getSimpleName();

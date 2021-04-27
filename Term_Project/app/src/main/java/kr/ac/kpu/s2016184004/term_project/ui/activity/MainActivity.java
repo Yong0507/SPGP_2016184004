@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import kr.ac.kpu.game.s1234567.dragonflight.R;
+import kr.ac.kpu.s2016184004.term_project.R;
 
 public class MainActivity extends AppCompatActivity {
 

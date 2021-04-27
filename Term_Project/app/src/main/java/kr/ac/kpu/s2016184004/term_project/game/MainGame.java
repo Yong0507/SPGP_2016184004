@@ -7,11 +7,12 @@ import android.view.MotionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import kr.ac.kpu.game.s1234567.dragonflight.framework.BoxCollidable;
-import kr.ac.kpu.game.s1234567.dragonflight.framework.GameObject;
-import kr.ac.kpu.game.s1234567.dragonflight.framework.Recyclable;
-import kr.ac.kpu.game.s1234567.dragonflight.ui.view.GameView;
-import kr.ac.kpu.game.s1234567.dragonflight.utils.CollisionHelper;
+
+import kr.ac.kpu.s2016184004.term_project.framework.BoxCollidable;
+import kr.ac.kpu.s2016184004.term_project.framework.GameObject;
+import kr.ac.kpu.s2016184004.term_project.framework.Recyclable;
+import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
+import kr.ac.kpu.s2016184004.term_project.utils.CollisionHelper;
 
 public class MainGame {
     private static final String TAG = MainGame.class.getSimpleName();

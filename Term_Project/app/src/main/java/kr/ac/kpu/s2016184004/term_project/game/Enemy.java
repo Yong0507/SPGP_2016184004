@@ -3,12 +3,12 @@ package kr.ac.kpu.s2016184004.term_project.game;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-import kr.ac.kpu.game.s1234567.dragonflight.R;
-import kr.ac.kpu.game.s1234567.dragonflight.framework.AnimationGameBitmap;
-import kr.ac.kpu.game.s1234567.dragonflight.framework.BoxCollidable;
-import kr.ac.kpu.game.s1234567.dragonflight.framework.GameBitmap;
-import kr.ac.kpu.game.s1234567.dragonflight.framework.GameObject;
-import kr.ac.kpu.game.s1234567.dragonflight.ui.view.GameView;
+import kr.ac.kpu.s2016184004.term_project.R;
+import kr.ac.kpu.s2016184004.term_project.framework.AnimationGameBitmap;
+import kr.ac.kpu.s2016184004.term_project.framework.BoxCollidable;
+import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;
+import kr.ac.kpu.s2016184004.term_project.framework.GameObject;
+import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
 
 public class Enemy implements GameObject, BoxCollidable {
     private static final float FRAMES_PER_SECOND = 8.0f;
