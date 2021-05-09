@@ -3,7 +3,6 @@ package kr.ac.kpu.s2016184004.term_project.game;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
-
 import kr.ac.kpu.s2016184004.term_project.R;
 import kr.ac.kpu.s2016184004.term_project.framework.BoxCollidable;
 import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;

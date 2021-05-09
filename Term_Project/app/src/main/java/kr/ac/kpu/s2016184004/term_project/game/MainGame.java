@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import androidx.constraintlayout.helper.widget.Layer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,7 +32,7 @@ public class MainGame {
     private boolean initialized;
 
 //    Player player;
-    ArrayList<GameObject> objects = new ArrayList<>();
+    ArrayList<ArrayList<GameObject>> layers;
     private static HashMap<Class, ArrayList<GameObject>> recycleBin = new HashMap<>();
 
     public void recycle(GameObject object) {
@@ -118,16 +120,16 @@ public class MainGame {
         return false;
     }
 
-    public void add(GameObject gameObject) {
+    public void add(Layer layer, GameObject gameObject) {
         GameView.view.post(new Runnable() {
             @Override
             public void run() {
+                ArrayList<GameObject> objects = layers.get(layer.ordinal());
                 objects.add(gameObject);
             }
         });
 //        Log.d(TAG, "<A> object count = " + objects.size());
     }
-
     public void remove(GameObject gameObject) {
         if (gameObject instanceof Recyclable) {
             ((Recyclable) gameObject).recycle();
