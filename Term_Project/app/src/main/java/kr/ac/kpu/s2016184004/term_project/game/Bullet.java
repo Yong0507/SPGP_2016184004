@@ -4,8 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 import kr.ac.kpu.s2016184004.term_project.R;
 import kr.ac.kpu.s2016184004.term_project.framework.BoxCollidable;
 import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;

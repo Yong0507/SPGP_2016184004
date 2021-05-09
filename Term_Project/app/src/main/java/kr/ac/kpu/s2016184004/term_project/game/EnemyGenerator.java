@@ -1,7 +1,6 @@
 package kr.ac.kpu.s2016184004.term_project.game;
 
 import android.graphics.Canvas;
-import android.util.Log;
 
 import java.util.Random;
 
