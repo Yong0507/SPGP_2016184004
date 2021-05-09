@@ -23,7 +23,7 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
         this.speed = -speed;
 
         Log.d(TAG, "loading bitmap for bullet");
-        this.bitmap = new GameBitmap(R.mipmap.laser_1);
+        this.bitmap = new GameBitmap(R.mipmap.player_bullet);
     }
 
     //    private static ArrayList<Bullet> recycleBin = new ArrayList<>();
