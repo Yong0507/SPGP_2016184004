@@ -28,7 +28,7 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
         this.bitmap = new GameBitmap(R.mipmap.laser_1);
     }
 
-//    private static ArrayList<Bullet> recycleBin = new ArrayList<>();
+    //    private static ArrayList<Bullet> recycleBin = new ArrayList<>();
     public static Bullet get(float x, float y, int speed) {
         MainGame game = MainGame.get();
         Bullet bullet = (Bullet) game.get(Bullet.class);
@@ -52,7 +52,6 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
 
         if (y < 0) {
             game.remove(this);
-            recycle();
         }
     }
 

@@ -78,4 +78,3 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
         // 재활용통에 들어가는 시점에 불리는 함수. 현재는 할일없음.
     }
 }
-
