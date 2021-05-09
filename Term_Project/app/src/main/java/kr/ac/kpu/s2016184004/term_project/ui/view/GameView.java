@@ -16,7 +16,8 @@ import kr.ac.kpu.s2016184004.term_project.game.MainGame;
 public class GameView extends View {
     private static final String TAG = GameView.class.getSimpleName();
 
-    public static final float MULTIPLIER = 2;
+    public static float MULTIPLIER = 2;
+    private boolean running;
     //    private Ball b1, b2;
 
     private long lastFrame;
@@ -26,6 +27,7 @@ public class GameView extends View {
         super(context, attrs);
         GameView.view = this;
         Sound.init(context);
+        running = true;
 //        startUpdating();
     }
 
@@ -48,6 +50,10 @@ public class GameView extends View {
     }
 
     private void requestCallback() {
+        if (!running) {
+            Log.d(TAG, "Not running. Not calling Choreographer.postFrameCallback()");
+            return;
+        }
         Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
             @Override
             public void doFrame(long time) {
@@ -73,6 +79,18 @@ public class GameView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         MainGame game = MainGame.get();
         return game.onTouchEvent(event);
+    }
+
+    public void pauseGame() {
+        running = false;
+    }
+
+    public void resumeGame() {
+        if (!running) {
+            running = true;
+            lastFrame = 0;
+            requestCallback();
+        }
     }
 }
 
