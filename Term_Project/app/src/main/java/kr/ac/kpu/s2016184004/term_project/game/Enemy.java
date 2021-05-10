@@ -17,7 +17,7 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
     private static final int[] RESOURCE_IDS = {
             R.mipmap.monster, R.mipmap.enemy_01, R.mipmap.enemy_02,
     };
-    
+
     private static final String TAG = Enemy.class.getSimpleName();
     private float x;
     private GameBitmap bitmap;
