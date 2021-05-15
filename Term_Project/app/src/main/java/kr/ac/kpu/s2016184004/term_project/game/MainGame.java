@@ -50,7 +50,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, enemy, bullet, player, bg2, ui, controller, ENEMY_COUNT
+        bg1, enemy, boss, bullet, player, bg2, ui, controller, ENEMY_COUNT
     }
 
     public boolean initResources() {

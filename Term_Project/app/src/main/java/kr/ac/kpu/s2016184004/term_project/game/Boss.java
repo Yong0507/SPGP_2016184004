@@ -12,32 +12,33 @@ import kr.ac.kpu.s2016184004.term_project.framework.GameObject;
 import kr.ac.kpu.s2016184004.term_project.framework.Recyclable;
 import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
 
-public class Enemy implements GameObject, BoxCollidable, Recyclable {
+public class Boss implements GameObject, BoxCollidable, Recyclable {
     private static final float FRAMES_PER_SECOND = 8.0f;
     private static final int[] RESOURCE_IDS = {
-            R.mipmap.monster, R.mipmap.enemy_01, R.mipmap.enemy_02,R.mipmap.boss
+            R.mipmap.boss
     };
-
-    private static final String TAG = Enemy.class.getSimpleName();
+    private static final String TAG = Boss.class.getSimpleName();
     private float x;
     private GameBitmap bitmap;
     private int level;
     private float y;
     private int speed;
+    // 보스 패턴
+    private int coolTime;
 
-    private Enemy() {
-        Log.d(TAG, "Enemy constructor");
+    private Boss() {
+        Log.d(TAG, "Boss constructor");
     }
 
-    public static Enemy get(int level, int x, int y, int speed) {
+    public static Boss get(int level, int x, int y, int speed) {
         MainGame game = MainGame.get();
-        Enemy enemy = (Enemy) game.get(Enemy.class);
-        if (enemy == null) {
-            enemy = new Enemy();
+        Boss boss = (Boss) game.get(Boss.class);
+        if (boss == null) {
+            boss = new Boss();
         }
 
-        enemy.init(level, x, y, speed);
-        return enemy;
+        boss.init(level, x, y, speed);
+        return boss;
     }
 
     private void init(int level, int x, int y, int speed) {

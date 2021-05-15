@@ -14,6 +14,8 @@ public class EnemyGenerator implements GameObject {
     private float time;
     private float spawnInterval;
     private int wave;
+    private int x1;
+    private int y1;
 
     public EnemyGenerator() {
         time = INITIAL_SPAWN_INTERVAL;
@@ -45,6 +47,12 @@ public class EnemyGenerator implements GameObject {
             Enemy enemy = Enemy.get(level, x, y, 700);
             game.add(MainGame.Layer.enemy, enemy);
         }
+
+        x1 = 500;
+        y1 = 0;
+        Boss boss = Boss.get(1,x1,y1,700);
+        game.add(MainGame.Layer.boss, boss);
+
     }
 
     @Override
