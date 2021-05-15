@@ -22,9 +22,14 @@ public class Boss implements GameObject, BoxCollidable, Recyclable {
     private GameBitmap bitmap;
     private int level;
     private float y;
-    private int speed;
+    private int type;
     // 보스 패턴
     private int coolTime;
+    // 보스 총알
+    private static final int BULLET_SPEED = 1500;
+    private static final float FIRE_INTERVAL = 1.0f / 7.5f;
+    private static final float LASER_DURATION = FIRE_INTERVAL / 3;
+    private float fireTime;
 
     private Boss() {
         Log.d(TAG, "Boss constructor");
@@ -41,10 +46,10 @@ public class Boss implements GameObject, BoxCollidable, Recyclable {
         return boss;
     }
 
-    private void init(int level, int x, int y, int speed) {
+    private void init(int level, int x, int y, int type) {
         this.x = x;
         this.y = y;
-        this.speed = speed;
+        this.type = type;
         this.level = level;
 
         int resId = RESOURCE_IDS[level - 1];
@@ -55,10 +60,19 @@ public class Boss implements GameObject, BoxCollidable, Recyclable {
     @Override
     public void update() {
         MainGame game = MainGame.get();
-        y += speed * game.frameTime;
+        // Boss의 움직임 패턴
 
-        if (y > GameView.view.getHeight()) {
-            game.remove(this);
+        x += 5 * game.frameTime;
+
+        if (x > GameView.view.getWidth()) {
+            x -= 5 * game.frameTime;
+        }
+
+        // 총알
+        fireTime += game.frameTime;
+        if (fireTime >= FIRE_INTERVAL) {
+            fireBullet();
+            fireTime -= FIRE_INTERVAL;
         }
     }
 
@@ -75,5 +89,11 @@ public class Boss implements GameObject, BoxCollidable, Recyclable {
     @Override
     public void recycle() {
         // 재활용통에 들어가는 시점에 불리는 함수. 현재는 할일없음.
+    }
+
+    private void fireBullet() {
+        BossBullet bullet = BossBullet.get(this.x, this.y, BULLET_SPEED);
+        MainGame game = MainGame.get();
+        game.add(MainGame.Layer.bossbullet, bullet);
     }
 }
