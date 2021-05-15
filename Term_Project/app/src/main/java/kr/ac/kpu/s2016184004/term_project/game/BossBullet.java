@@ -9,9 +9,10 @@ import kr.ac.kpu.s2016184004.term_project.framework.BoxCollidable;
 import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;
 import kr.ac.kpu.s2016184004.term_project.framework.GameObject;
 import kr.ac.kpu.s2016184004.term_project.framework.Recyclable;
+import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
 
 public class BossBullet implements GameObject, BoxCollidable, Recyclable {
-    private static final String TAG = BossBullet.class.getSimpleName();
+    private static final String TAG = Bullet.class.getSimpleName();
     private float x;
     private final GameBitmap bitmap;
     private float y;
@@ -22,19 +23,19 @@ public class BossBullet implements GameObject, BoxCollidable, Recyclable {
         this.y = y;
         this.speed = -speed;
 
-        Log.d(TAG, "loading bitmap for Boss bullet");
+        Log.d(TAG, "loading bitmap for bullet");
         this.bitmap = new GameBitmap(R.mipmap.boss_bullet);
     }
 
     //    private static ArrayList<Bullet> recycleBin = new ArrayList<>();
     public static BossBullet get(float x, float y, int speed) {
         MainGame game = MainGame.get();
-        BossBullet Bossbullet = (BossBullet) game.get(BossBullet.class);
-        if (Bossbullet == null) {
+        BossBullet bossbullet = (BossBullet) game.get(BossBullet.class);
+        if (bossbullet == null) {
             return new BossBullet(x, y, speed);
         }
-        Bossbullet.init(x, y, speed);
-        return Bossbullet;
+        bossbullet.init(x, y, speed);
+        return bossbullet;
     }
 
     private void init(float x, float y, int speed) {
@@ -46,9 +47,9 @@ public class BossBullet implements GameObject, BoxCollidable, Recyclable {
     @Override
     public void update() {
         MainGame game = MainGame.get();
-        y += speed * game.frameTime;
+        y -= speed * game.frameTime;
 
-        if (y < 0) {
+        if (y > GameView.view.getHeight()) {
             game.remove(this);
         }
     }

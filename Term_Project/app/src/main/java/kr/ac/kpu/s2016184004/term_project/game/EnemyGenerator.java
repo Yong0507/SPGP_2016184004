@@ -50,12 +50,8 @@ public class EnemyGenerator implements GameObject {
             Enemy enemy = Enemy.get(level, x, y, 700);
             game.add(MainGame.Layer.enemy, enemy);
         }
-        
-        if(wave == 3)
-        {
-            Boss boss = Boss.get(1,GameView.view.getWidth() / 2, 0, 1);
-            game.add(MainGame.Layer.boss, boss);
-
+        if(wave == 3) {
+            Is_boss = true;
         }
     }
 

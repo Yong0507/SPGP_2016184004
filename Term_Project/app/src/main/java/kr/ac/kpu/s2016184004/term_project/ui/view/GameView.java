@@ -11,6 +11,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import kr.ac.kpu.s2016184004.term_project.framework.Sound;
+import kr.ac.kpu.s2016184004.term_project.game.Boss;
+import kr.ac.kpu.s2016184004.term_project.game.EnemyGenerator;
 import kr.ac.kpu.s2016184004.term_project.game.MainGame;
 
 public class GameView extends View {
@@ -22,6 +24,8 @@ public class GameView extends View {
 
     private long lastFrame;
     public static GameView view;
+
+    private EnemyGenerator enemyGenerator;
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);

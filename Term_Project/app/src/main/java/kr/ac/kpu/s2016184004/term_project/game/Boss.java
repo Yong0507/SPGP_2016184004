@@ -2,73 +2,39 @@ package kr.ac.kpu.s2016184004.term_project.game;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
-import android.util.Log;
 
 import kr.ac.kpu.s2016184004.term_project.R;
 import kr.ac.kpu.s2016184004.term_project.framework.AnimationGameBitmap;
 import kr.ac.kpu.s2016184004.term_project.framework.BoxCollidable;
 import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;
 import kr.ac.kpu.s2016184004.term_project.framework.GameObject;
-import kr.ac.kpu.s2016184004.term_project.framework.Recyclable;
 import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
 
-public class Boss implements GameObject, BoxCollidable, Recyclable {
-    private static final float FRAMES_PER_SECOND = 8.0f;
-    private static final int[] RESOURCE_IDS = {
-            R.mipmap.boss
-    };
+public class Boss implements GameObject, BoxCollidable {
     private static final String TAG = Boss.class.getSimpleName();
-    private float x;
-    private GameBitmap bitmap;
-    private int level;
-    private float y;
-    private int type;
-    // 보스 패턴
-    private int coolTime;
-    // 보스 총알
     private static final int BULLET_SPEED = 1500;
     private static final float FIRE_INTERVAL = 1.0f / 7.5f;
     private static final float LASER_DURATION = FIRE_INTERVAL / 3;
     private float fireTime;
+    private float x, y;
+    private float speed;
+    private GameBitmap planeBitmap;
+    private GameBitmap fireBitmap;
 
-    private Boss() {
-        Log.d(TAG, "Boss constructor");
-    }
+    private EnemyGenerator enemyGenerator;
 
-    public static Boss get(int level, int x, int y, int speed) {
-        MainGame game = MainGame.get();
-        Boss boss = (Boss) game.get(Boss.class);
-        if (boss == null) {
-            boss = new Boss();
-        }
-
-        boss.init(level, x, y, speed);
-        return boss;
-    }
-
-    private void init(int level, int x, int y, int type) {
+    public Boss(float x, float y) {
         this.x = x;
         this.y = y;
-        this.type = type;
-        this.level = level;
-
-        int resId = RESOURCE_IDS[level - 1];
-
-        this.bitmap = new AnimationGameBitmap(resId, FRAMES_PER_SECOND, 0);
+        this.speed = 800;
+        this.planeBitmap = new GameBitmap(R.mipmap.boss);
+        this.fireBitmap = new GameBitmap(R.mipmap.laser_0);
+        this.fireTime = 0.0f;
     }
 
-    @Override
     public void update() {
         MainGame game = MainGame.get();
-        // Boss의 움직임 패턴
 
-        x += 5 * game.frameTime;
-
-        if (x > GameView.view.getWidth()) {
-            x -= 5 * game.frameTime;
-        }
-
-        // 총알
         fireTime += game.frameTime;
         if (fireTime >= FIRE_INTERVAL) {
             fireBullet();
@@ -76,24 +42,21 @@ public class Boss implements GameObject, BoxCollidable, Recyclable {
         }
     }
 
-    @Override
+    private void fireBullet() {
+        BossBullet bossbullet = BossBullet.get(this.x, this.y , BULLET_SPEED);
+        MainGame game = MainGame.get();
+        game.add(MainGame.Layer.bossbullet, bossbullet);
+    }
+
     public void draw(Canvas canvas) {
-        bitmap.draw(canvas, x, y);
+        planeBitmap.draw(canvas, x, y);
+        if (fireTime < LASER_DURATION) {
+            fireBitmap.draw(canvas, x, y - 50);
+        }
     }
 
     @Override
     public void getBoundingRect(RectF rect) {
-        bitmap.getBoundingRect(x, y, rect);
-    }
-
-    @Override
-    public void recycle() {
-        // 재활용통에 들어가는 시점에 불리는 함수. 현재는 할일없음.
-    }
-
-    private void fireBullet() {
-        BossBullet bullet = BossBullet.get(this.x, this.y, BULLET_SPEED);
-        MainGame game = MainGame.get();
-        game.add(MainGame.Layer.bossbullet, bullet);
+        planeBitmap.getBoundingRect(x, y, rect);
     }
 }

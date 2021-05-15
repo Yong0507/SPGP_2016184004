@@ -17,7 +17,11 @@ public class MainGame {
     // singleton
     private static MainGame instance;
     private Player player;
+    private Boss boss;
     private Score score;
+
+    //
+    private EnemyGenerator enemyGenerator;
 
     public static MainGame get() {
         if (instance == null) {
@@ -63,8 +67,11 @@ public class MainGame {
         initLayers(Layer.ENEMY_COUNT.ordinal());
 
         player = new Player(w / 2, h - 300);
-        //layers.get(Layer.player.ordinal()).add(player);
         add(Layer.player, player);
+
+        boss = new Boss(GameView.view.getWidth() / 2, 100);
+        add(Layer.boss, boss);
+
         add(Layer.controller, new EnemyGenerator());
 
         int margin = (int) (20 * GameView.MULTIPLIER);
@@ -74,9 +81,6 @@ public class MainGame {
 
         VerticalScrollBackground bg = new VerticalScrollBackground(R.mipmap.bg_grass, 10);
         add(Layer.bg1, bg);
-
-//        VerticalScrollBackground clouds = new VerticalScrollBackground(R.mipmap.clouds, 20);
-//        add(Layer.bg2, clouds);
 
         initialized = true;
         return true;
@@ -90,7 +94,6 @@ public class MainGame {
     }
 
     public void update() {
-        //if (!initialized) return;
         for (ArrayList<GameObject> objects : layers) {
             for (GameObject o : objects) {
                 o.update();
@@ -117,35 +120,9 @@ public class MainGame {
                 break;
             }
         }
-//        for (GameObject o1 : objects) {
-//            if (!(o1 instanceof Enemy)) {
-//                continue;
-//            }
-//            Enemy enemy = (Enemy) o1;
-//            boolean removed = false;
-//            for (GameObject o2 : objects) {
-//                if (!(o2 instanceof Bullet)) {
-//                    continue;
-//                }
-//                Bullet bullet = (Bullet) o2;
-//
-//                if (CollisionHelper.collides(enemy, bullet)) {
-//                    //Log.d(TAG, "Collision!" + o1 + " - " + o2);
-//                    remove(enemy);
-//                    remove(bullet);
-//                    //bullet.recycle();
-//                    //recycle(bullet);
-//                    removed = true;
-//                    break;
-//                }
-//            }
-//            if (removed) {
-//                continue;
-//            }
-//            if (CollisionHelper.collides(enemy, player)) {
-//                Log.d(TAG, "Collision: Enemy - Player");
-//            }
-//        }
+
+
+
     }
 
     public void draw(Canvas canvas) {
@@ -159,16 +136,8 @@ public class MainGame {
 
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
-//        if (action == MotionEvent.ACTION_DOWN) {
         if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE) {
             player.moveTo(event.getX(), event.getY());
-//            int li = 0;
-//            for (ArrayList<GameObject> objects: layers) {
-//                for (GameObject o : objects) {
-//                    Log.d(TAG, "L:" + li + " " + o);
-//                }
-//                li++;
-//            }
             return true;
         }
         return false;
