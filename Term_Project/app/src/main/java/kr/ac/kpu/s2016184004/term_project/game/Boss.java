@@ -60,7 +60,6 @@ public class Boss implements GameObject, BoxCollidable {
             speed = -speed;
 
 
-
         fireTime += game.frameTime;
         if (fireTime >= FIRE_INTERVAL) {
             fireBullet();

@@ -33,7 +33,6 @@ public class Player implements GameObject, BoxCollidable {
 
     public void moveTo(float x, float y) {
         this.tx = x;
-        //this.ty = this.y;
     }
 
     public void update() {
