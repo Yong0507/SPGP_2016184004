@@ -1,6 +1,7 @@
 package kr.ac.kpu.s2016184004.term_project.game;
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class MainGame {
     private Player player;
     private Score score;
 
-    //
-    private EnemyGenerator enemyGenerator;
+    // 보스 몬스터 데미지
+    private int HitbossCount;
 
     public static MainGame get() {
         if (instance == null) {
@@ -97,8 +98,11 @@ public class MainGame {
         }
 
         ArrayList<GameObject> enemies = layers.get(Layer.enemy.ordinal());
+        ArrayList<GameObject> bosses = layers.get(Layer.boss.ordinal());
+
         ArrayList<GameObject> bullets = layers.get(Layer.bullet.ordinal());
 
+        // 플레이어 총알 <-> 일반 몬스터 충돌처리
         for (GameObject o1 : enemies) {
             Enemy enemy = (Enemy) o1;
             boolean collided = false;
@@ -117,48 +121,25 @@ public class MainGame {
             }
         }
 
-//        ArrayList<GameObject> enemies = layers.get(Layer.enemy.ordinal());
-//        ArrayList<GameObject> bosses = layers.get(Layer.boss.ordinal());
-//
-//        ArrayList<GameObject> player_bullets = layers.get(Layer.bullet.ordinal());
-//
-//        for (GameObject o1 : enemies) {
-//            Enemy enemy = (Enemy) o1;
-//            boolean collided = false;
-//
-//            for(GameObject o3 : bosses) {
-//                Boss boss = (Boss) o3;
-//                boolean b_collided = false;
-//            }
-//
-//            for (GameObject o2 : player_bullets) {
-//                Bullet bullet = (Bullet) o2;
-//                if (CollisionHelper.collides(enemy, bullet)) {
-//                    remove(bullet, false);
-//                    remove(enemy, false);
-//                    score.addScore(10);
-//                    collided = true;
-//                    break;
-//                }
-//
-//                if(CollisionHelper.collides(boss, bullet))
-//                {
-//                    remove(bullet, false);
-//                    remove(boss, false);
-//                    score.addScore(3000);
-//                    b_collided = true;
-//                    break;
-//                }
-//            }
-//
-//            if (collided) {
-//                break;
-//            }
-//        }
+        // 플레이어 총알 <-> 보스 몬스터 충돌처리
+        for (GameObject o1 : bosses) {
+            Boss boss = (Boss) o1;
+            boolean collided = false;
+            for (GameObject o2 : bullets) {
+                Bullet bullet = (Bullet) o2;
+                if (CollisionHelper.collides(boss, bullet)) {
+                    HitbossCount++;
 
-
-
-
+                    Log.d(TAG, "value" + HitbossCount);
+                    remove(bullet, false);
+                    collided = true;
+                    break;
+                }
+            }
+            if (collided) {
+                break;
+            }
+        }
     }
 
     public void draw(Canvas canvas) {
