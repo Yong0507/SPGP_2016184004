@@ -69,8 +69,8 @@ public class MainGame {
         player = new Player(w / 2, h - 300);
         add(Layer.player, player);
 
-        boss = new Boss(GameView.view.getWidth() / 2, 100);
-        add(Layer.boss, boss);
+//        boss = new Boss(GameView.view.getWidth() / 2, 100);
+//        add(Layer.boss, boss);
 
         add(Layer.controller, new EnemyGenerator());
 
