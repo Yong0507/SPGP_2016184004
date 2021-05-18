@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.Log;
 
+import java.util.Random;
+
 import kr.ac.kpu.s2016184004.term_project.R;
 import kr.ac.kpu.s2016184004.term_project.framework.BoxCollidable;
 import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;
@@ -18,13 +20,16 @@ public class BossBullet implements GameObject, BoxCollidable, Recyclable {
     private float y;
     private int speed;
 
+
+
     private BossBullet(float x, float y, int speed) {
         this.x = x;
         this.y = y;
         this.speed = -speed;
 
-        Log.d(TAG, "loading bitmap for bullet");
+        Log.d(TAG, "loading bitmap for boss_bullet");
         this.bitmap = new GameBitmap(R.mipmap.boss_bullet);
+
     }
 
     //    private static ArrayList<Bullet> recycleBin = new ArrayList<>();
@@ -47,6 +52,7 @@ public class BossBullet implements GameObject, BoxCollidable, Recyclable {
     @Override
     public void update() {
         MainGame game = MainGame.get();
+
         y -= speed * game.frameTime;
 
         if (y > GameView.view.getHeight()) {

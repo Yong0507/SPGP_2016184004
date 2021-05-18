@@ -17,7 +17,6 @@ public class MainGame {
     // singleton
     private static MainGame instance;
     private Player player;
-    private Boss boss;
     private Score score;
 
     //
@@ -69,9 +68,6 @@ public class MainGame {
         player = new Player(w / 2, h - 300);
         add(Layer.player, player);
 
-//        boss = new Boss(GameView.view.getWidth() / 2, 100);
-//        add(Layer.boss, boss);
-
         add(Layer.controller, new EnemyGenerator());
 
         int margin = (int) (20 * GameView.MULTIPLIER);
@@ -120,6 +116,46 @@ public class MainGame {
                 break;
             }
         }
+
+//        ArrayList<GameObject> enemies = layers.get(Layer.enemy.ordinal());
+//        ArrayList<GameObject> bosses = layers.get(Layer.boss.ordinal());
+//
+//        ArrayList<GameObject> player_bullets = layers.get(Layer.bullet.ordinal());
+//
+//        for (GameObject o1 : enemies) {
+//            Enemy enemy = (Enemy) o1;
+//            boolean collided = false;
+//
+//            for(GameObject o3 : bosses) {
+//                Boss boss = (Boss) o3;
+//                boolean b_collided = false;
+//            }
+//
+//            for (GameObject o2 : player_bullets) {
+//                Bullet bullet = (Bullet) o2;
+//                if (CollisionHelper.collides(enemy, bullet)) {
+//                    remove(bullet, false);
+//                    remove(enemy, false);
+//                    score.addScore(10);
+//                    collided = true;
+//                    break;
+//                }
+//
+//                if(CollisionHelper.collides(boss, bullet))
+//                {
+//                    remove(bullet, false);
+//                    remove(boss, false);
+//                    score.addScore(3000);
+//                    b_collided = true;
+//                    break;
+//                }
+//            }
+//
+//            if (collided) {
+//                break;
+//            }
+//        }
+
 
 
 
