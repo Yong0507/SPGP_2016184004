@@ -16,7 +16,7 @@ import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
 public class Boss implements GameObject, BoxCollidable {
     private static final String TAG = Boss.class.getSimpleName();
     private static final int BULLET_SPEED = 1000;
-    private static final float FIRE_INTERVAL = 1.0f / 1.2f;
+    private static final float FIRE_INTERVAL = 1.5f;
     private static final float LASER_DURATION = FIRE_INTERVAL / 3;
 
 

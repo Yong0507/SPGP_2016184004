@@ -136,10 +136,21 @@ public class MainGame {
                     break;
                 }
             }
+
+            if(HitbossCount > 100) {
+                remove(boss, false);
+                score.addScore(100);
+                collided = true;
+                break;
+            }
+
             if (collided) {
                 break;
             }
         }
+
+
+
     }
 
     public void draw(Canvas canvas) {
