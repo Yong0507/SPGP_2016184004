@@ -1,12 +1,14 @@
 package kr.ac.kpu.s2016184004.term_project.game;
 
 import android.graphics.Canvas;
+import android.media.effect.Effect;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import kr.ac.kpu.s2016184004.term_project.R;
+import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;
 import kr.ac.kpu.s2016184004.term_project.framework.GameObject;
 import kr.ac.kpu.s2016184004.term_project.framework.Recyclable;
 import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
@@ -23,6 +25,7 @@ public class MainGame {
     // 보스 몬스터 데미지
     private int HitbossCount;
     private int HitplayerCount;
+    private Canvas canvas;
 
     public static MainGame get() {
         if (instance == null) {
@@ -165,11 +168,17 @@ public class MainGame {
                 if (CollisionHelper.collides(player, boss_bullet)) {
                     HitplayerCount ++;
 
-                    //remove(player,false);
                     remove(boss_bullet);
                     collided = true;
                     break;
                 }
+                if(HitplayerCount == 5)
+                {
+                    remove(player,false);
+                    collided = true;
+                    break;
+                }
+
                 if (collided) {
                     break;
                 }

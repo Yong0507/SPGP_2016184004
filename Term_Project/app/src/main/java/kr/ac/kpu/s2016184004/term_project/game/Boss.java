@@ -70,13 +70,15 @@ public class Boss implements GameObject, BoxCollidable {
     private void fireBullet() {
         int tenth = GameView.view.getWidth() / 10;
         Random r = new Random();
-        int odd = 2 * r.nextInt(5) + 1;   // 1~9 홀수 중 1개를 뽑아낸다
+        int rand_x1 = 2 * r.nextInt(5) + 1;   // 1~9 홀수 중 1개를 뽑아낸다
+        int rand_x2 = ( rand_x1 + 2 ) % 10;
+        int rand_x3 = ( rand_x1 + 4 ) % 10;
+        int rand_x4 = ( rand_x1 + 6 ) % 10;
 
-        BossBullet bossbullet1 = BossBullet.get(tenth * 1, 200 , BULLET_SPEED);
-        BossBullet bossbullet2 = BossBullet.get(tenth * 3, 200 , BULLET_SPEED);
-        BossBullet bossbullet3 = BossBullet.get(tenth * 5, 200 , BULLET_SPEED);
-        BossBullet bossbullet4 = BossBullet.get(tenth * 7, 200 , BULLET_SPEED);
-        BossBullet bossbullet5 = BossBullet.get(tenth * 9, 200 , BULLET_SPEED);
+        BossBullet bossbullet1 = BossBullet.get(tenth * rand_x1, 200 , BULLET_SPEED);
+        BossBullet bossbullet2 = BossBullet.get(tenth * rand_x2, 200 , BULLET_SPEED);
+        BossBullet bossbullet3 = BossBullet.get(tenth * rand_x3, 200 , BULLET_SPEED);
+        BossBullet bossbullet4 = BossBullet.get(tenth * rand_x4, 200 , BULLET_SPEED);
 
         MainGame game = MainGame.get();
 
@@ -84,7 +86,6 @@ public class Boss implements GameObject, BoxCollidable {
         game.add(MainGame.Layer.bossbullet, bossbullet2);
         game.add(MainGame.Layer.bossbullet, bossbullet3);
         game.add(MainGame.Layer.bossbullet, bossbullet4);
-        game.add(MainGame.Layer.bossbullet, bossbullet5);
     }
 
     public void draw(Canvas canvas) {
