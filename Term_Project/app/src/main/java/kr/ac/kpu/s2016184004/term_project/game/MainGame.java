@@ -155,7 +155,7 @@ public class MainGame {
                 }
             }
 
-            if(HitbossCount > 100) {
+            if(HitbossCount > 1000) {
                 remove(boss, false);
                 score.addScore(100);
                 collided = true;
@@ -175,6 +175,9 @@ public class MainGame {
                 if (CollisionHelper.collides(player, boss_bullet)) {
                     HitplayerCount ++;
 
+                    particle = new Particle((int)player.getX() - 120, (int)player.getY() - 180);
+                    add(Layer.particle, particle);
+
                     remove(boss_bullet);
                     collided = true;
                     break;
@@ -183,7 +186,7 @@ public class MainGame {
                     remove(heart1);
                 if(HitplayerCount == 2)
                     remove(heart2);
-                if(HitplayerCount == 3) {
+                if(HitplayerCount == 20) {
                     remove(heart3);
                     remove(player,false);
                     collided = true;

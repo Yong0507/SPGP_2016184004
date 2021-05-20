@@ -15,7 +15,7 @@ import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
 public class Enemy implements GameObject, BoxCollidable, Recyclable {
     private static final float FRAMES_PER_SECOND = 8.0f;
     private static final int[] RESOURCE_IDS = {
-            R.mipmap.monster, R.mipmap.enemy_01, R.mipmap.enemy_02,R.mipmap.boss
+            R.mipmap.monster_01, R.mipmap.monster_02, R.mipmap.monster_03
     };
 
     private static final String TAG = Enemy.class.getSimpleName();
