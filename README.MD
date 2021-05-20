@@ -32,7 +32,9 @@ MainGame에 등장하는 game object - (4개의 Class 추가 - Boss, BossBullet,
 
 - Boss, BossBullet, EnemyGenerator 상호작용 
 
+
 ![Image04](https://imgur.com/bM3kWWB.png)
+
 
 (1) EnemyGenerator 클래스에서 wave가 20이 되는 시점에 Boss 객체를 생성한다.
 
@@ -40,12 +42,17 @@ MainGame에 등장하는 game object - (4개의 Class 추가 - Boss, BossBullet,
     BossBullet은 가로로 5등분 했을 때 랜덤하게 4개의 구간에서 총알이 발사된다.
 
 
+
+
 - Heart와 Particle
 
 ![Image05](https://imgur.com/OboCGfd.png)
 
 (1) MainGame 클래스의 initResources() 함수에서 3개의 하트를 추가시킨다.
+
 (2) Particle 은 일정한 시간 이후 사라져야 하므로 Particle 클래스의 update() 에서 시간을 재서 지우도록 했다.
+
+
 
 
 - 충돌처리
