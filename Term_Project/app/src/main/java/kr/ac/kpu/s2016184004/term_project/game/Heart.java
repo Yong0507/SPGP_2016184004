@@ -12,6 +12,7 @@ public class Heart implements GameObject {
     private final Bitmap bitmap;
     private final int x;
     private final int y;
+    public int life_count = 3;
 
     public Heart(int x, int y) {
         bitmap = GameBitmap.load(R.mipmap.heart);
@@ -22,7 +23,9 @@ public class Heart implements GameObject {
     @Override
     public void draw(Canvas canvas) {
 
-        canvas.drawBitmap(bitmap, x, y, null);
+        for(int i=0; i < life_count; ++i) {
+            canvas.drawBitmap(bitmap, x + i * 60, y, null);
+        }
     }
 
     @Override

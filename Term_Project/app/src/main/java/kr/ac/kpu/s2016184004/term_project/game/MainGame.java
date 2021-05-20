@@ -21,9 +21,7 @@ public class MainGame {
     private static MainGame instance;
     private Player player;
     private Score score;
-    private Heart heart1;
-    private Heart heart2;
-    private Heart heart3;
+    private Heart heart;
 
     private Particle particle;
 
@@ -84,12 +82,8 @@ public class MainGame {
         score.setScore(0);
         add(Layer.ui, score);
 
-        heart1 = new Heart(100 + 60 * 2, 100);
-        add(Layer.heart, heart1);
-        heart2 = new Heart(100 + 60 * 1,100);
-        add(Layer.heart, heart2);
-        heart3 = new Heart(100,100);
-        add(Layer.heart, heart3);
+        heart = new Heart(100,60);
+        add(Layer.heart, heart);
 
         VerticalScrollBackground bg = new VerticalScrollBackground(R.mipmap.bg_grass, 10);
         add(Layer.bg1, bg);
@@ -146,19 +140,19 @@ public class MainGame {
             for (GameObject o2 : player_bullets) {
                 Bullet player_bullet = (Bullet) o2;
                 if (CollisionHelper.collides(boss, player_bullet)) {
-                    HitbossCount++;
-
                     remove(player_bullet, false);
+
+                    HitbossCount++;
+                    if(HitbossCount > 100) {
+                        remove(boss, false);
+                        score.addScore(100);
+                        collided = true;
+                        break;
+                    }
+
                     collided = true;
                     break;
                 }
-            }
-
-            if(HitbossCount > 1000) {
-                remove(boss, false);
-                score.addScore(100);
-                collided = true;
-                break;
             }
             if (collided) {
                 break;
@@ -172,26 +166,20 @@ public class MainGame {
             for(GameObject o2 : boss_bullets) {
                 BossBullet boss_bullet = (BossBullet) o2;
                 if (CollisionHelper.collides(player, boss_bullet)) {
-                    HitplayerCount ++;
+                    remove(boss_bullet);
 
                     particle = new Particle((int)player.getX() - 120, (int)player.getY() - 180);
                     add(Layer.particle, particle);
 
-                    remove(boss_bullet);
-                    collided = true;
-                    break;
-                }
-                if(HitplayerCount == 1)
-                    remove(heart1);
-                if(HitplayerCount == 2)
-                    remove(heart2);
-                if(HitplayerCount == 3) {
-                    remove(heart3);
-                    remove(player,false);
-                    collided = true;
-                    break;
-                }
+                    HitplayerCount ++;
+                    heart.life_count --;
 
+                    if(heart.life_count == 0)
+                        remove(player, false);
+
+                    collided = true;
+                    break;
+                }
                 if (collided) {
                     break;
                 }
