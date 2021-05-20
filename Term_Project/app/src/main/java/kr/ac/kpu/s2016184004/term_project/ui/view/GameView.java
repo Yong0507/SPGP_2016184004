@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import kr.ac.kpu.s2016184004.term_project.R;
 import kr.ac.kpu.s2016184004.term_project.framework.Sound;
 import kr.ac.kpu.s2016184004.term_project.game.Boss;
 import kr.ac.kpu.s2016184004.term_project.game.EnemyGenerator;

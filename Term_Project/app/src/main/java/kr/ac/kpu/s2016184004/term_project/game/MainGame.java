@@ -2,6 +2,7 @@ package kr.ac.kpu.s2016184004.term_project.game;
 
 import android.graphics.Canvas;
 import android.media.effect.Effect;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -20,12 +21,15 @@ public class MainGame {
     private static MainGame instance;
     private Player player;
     private Score score;
-    private Heart heart;
+    private Heart heart1;
+    private Heart heart2;
+    private Heart heart3;
+
+    private Particle particle;
 
     // 보스 몬스터 데미지
     private int HitbossCount;
     private int HitplayerCount;
-    private Canvas canvas;
 
     public static MainGame get() {
         if (instance == null) {
@@ -58,7 +62,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, enemy, bossbullet, boss, bullet, player, bg2, ui, heart, controller, ENEMY_COUNT
+        bg1, enemy, bossbullet, boss, bullet, player, particle, bg2, ui, heart, controller, ENEMY_COUNT
     }
 
     public boolean initResources() {
@@ -80,9 +84,12 @@ public class MainGame {
         score.setScore(0);
         add(Layer.ui, score);
 
-        heart = new Heart(0,0);
-        add(Layer.heart, heart);
-
+        heart1 = new Heart(100 + 60 * 2, 100);
+        add(Layer.heart, heart1);
+        heart2 = new Heart(100 + 60 * 1,100);
+        add(Layer.heart, heart2);
+        heart3 = new Heart(100,100);
+        add(Layer.heart, heart3);
 
         VerticalScrollBackground bg = new VerticalScrollBackground(R.mipmap.bg_grass, 10);
         add(Layer.bg1, bg);
@@ -172,8 +179,12 @@ public class MainGame {
                     collided = true;
                     break;
                 }
-                if(HitplayerCount == 5)
-                {
+                if(HitplayerCount == 1)
+                    remove(heart1);
+                if(HitplayerCount == 2)
+                    remove(heart2);
+                if(HitplayerCount == 3) {
+                    remove(heart3);
                     remove(player,false);
                     collided = true;
                     break;

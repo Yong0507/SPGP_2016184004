@@ -31,6 +31,8 @@ public class Player implements GameObject, BoxCollidable {
         this.fireTime = 0.0f;
     }
 
+    public float getX() { return this.x; }
+
     public void moveTo(float x, float y) {
         this.tx = x;
     }
