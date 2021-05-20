@@ -22,8 +22,7 @@
 ---------
 Git Commit 
 ---------
-
-![Image03](https://imgur.com/a/Wjq1q9P.png)
+![Image03](https://imgur.com/j4bPR6y.png)
 
 총 Commit 횟수는 30회 입니다.
 
@@ -31,37 +30,40 @@ Git Commit
 MainGame에 등장하는 game object - (4개의 Class 추가 - Boss, BossBullet, Heart, Particle)
 ---------
 
-1. Boss, BossBullet, EnemyGenerator 상호작용 
+- Boss, BossBullet, EnemyGenerator 상호작용 
 
 ![Image04](https://imgur.com/bM3kWWB.png)
 
-- EnemyGenerator 클래스에서 wave가 20이 되는 시점에 Boss 객체를 생성한다.
+(1) EnemyGenerator 클래스에서 wave가 20이 되는 시점에 Boss 객체를 생성한다.
 
-- Boss 클래스의 fireBullet() 함수에서 BossBullet 객체를 4개 생성한다.
-  BossBullet은 가로로 5등분 했을 때 랜덤하게 4개의 구간에서 총알이 발사된다.
+(2) Boss 클래스의 fireBullet() 함수에서 BossBullet 객체를 4개 생성한다.
+    BossBullet은 가로로 5등분 했을 때 랜덤하게 4개의 구간에서 총알이 발사된다.
 
-2. Heart와 Particle
+
+- Heart와 Particle
 
 ![Image05](https://imgur.com/OboCGfd.png)
 
-- MainGame 클래스의 initResources() 함수에서 3개의 하트를 추가시킨다.
-- Particle 은 일정한 시간 이후 사라져야 하므로 Particle 클래스의 update() 에서 시간을 재서 지우도록 했다.
+(1) MainGame 클래스의 initResources() 함수에서 3개의 하트를 추가시킨다.
+(2) Particle 은 일정한 시간 이후 사라져야 하므로 Particle 클래스의 update() 에서 시간을 재서 지우도록 했다.
 
 
-3. 충돌처리
+- 충돌처리
 
 ![Image06](https://imgur.com/wEJNGul.png)
 
 (1) 보스 몬스터의 총알 --> 플레이어 충돌 시점 :  
 
 HitPlayerCount 변수를 두어 몇 번을 맞았는지 Check
+
 Heart 삭제
+
 Particle 객체 생성
 
 (2) 플레이어 총알 --> 보스 몬스터 충돌 시점 : 
 
 HitbossCount 변수를 두어 몇 번을 맞았는지 Check
-현재는 플레이어 총알 100발을 맞는 시점에 
-remove(boss)를 하면서 스코어를 100점 올리도록 했다. 
+
+현재는 플레이어 총알 100발을 맞는 시점에 remove(boss)를 하면서 스코어를 100점 올리도록 했다. 
 
 
