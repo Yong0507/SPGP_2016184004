@@ -148,7 +148,6 @@ public class MainGame {
                 if (CollisionHelper.collides(boss, player_bullet)) {
                     HitbossCount++;
 
-                    //Log.d(TAG, "value" + HitbossCount);
                     remove(player_bullet, false);
                     collided = true;
                     break;
@@ -186,7 +185,7 @@ public class MainGame {
                     remove(heart1);
                 if(HitplayerCount == 2)
                     remove(heart2);
-                if(HitplayerCount == 20) {
+                if(HitplayerCount == 3) {
                     remove(heart3);
                     remove(player,false);
                     collided = true;

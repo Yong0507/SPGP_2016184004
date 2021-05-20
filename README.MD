@@ -5,52 +5,63 @@
 ---------
 
 ---------
-게임 소개 
+게임 간단한 소개 
 ---------
 ![Image01](https://imgur.com/67nSN7A.png)
 + 게임 : 드래곤 플라이트 모작
 + 장르 : 2D 슈팅 게임
-
-
----------
-게임 컨셉 (High concept 및 핵심 메카닉)
----------	
-+ 플레이어는 버튼을 눌러서 총알을 발사
-+ 기본 몬스터는 위에서 아래로 계속해서 생성되고 이 몬스터들을 총알로 무찌르면서 스코어를 획득
-+ 몬스터를 잡으면 랜덤한 확률로 아이템이 떨어짐
-+ 일정 시간 이후에 강력한 보스 몬스터가 생성되고 이 몬스터를 무찌르면 게임 클리어
-+ 목숨 3개를 다 잃게 되면 게임 종료
++ 컨셉 : 일반 몬스터와 보스 몬스터의 공격을 피해가면서 무찌르자!
 
 ---------			
-개발 범위 ( 개발 주요 요소 )
+현재까지의 진행 상황
 ---------
-![Image02](https://imgur.com/QPSdC1S.png)
-![Image03](https://imgur.com/e1QG0ak.png)
-1. 아이템 3종  
-	+ 더블 스코어 : 일정 시간 동안 스코어를 2배로 획득하게 된다.
-	+ 하트 : 목숨이 1개 더 늘어난다. (총 목숨은 3개를 가지고 시작한다)
-	+ 무적 : 일정 시간 동안 몬스터의 공격을 무시한다.
+![Image02](https://imgur.com/flEUfMi.png)
 
-![Image04](https://imgur.com/F7qyTMI.png)
-
-![Image05](https://imgur.com/JHwmOiw.png)
-
-2. 2가지의 테마 (2가지의 스테이지)
-	+ 초원 테마
-	+ 사막 테마		
-
-![Image06](https://imgur.com/uOX2u5C.png)
-
-3. 기본 몬스터 2종, 보스 몬스터 2종
+아이템 기능과 2개의 보스 몬스터 중 1종을 우선적으로 제작해야 하는 상황입니다.
 
 ---------
-예상 게임 실행 흐름
+Git Commit 
 ---------
-![Image07](https://imgur.com/LvvMeZu.png)
+
+![Image03](https://imgur.com/a/Wjq1q9P.png)
+
+총 Commit 횟수는 30회 입니다.
 
 ---------
-개발 일정
+MainGame에 등장하는 game object - (4개의 Class 추가 - Boss, BossBullet, Heart, Particle)
 ---------
-![Image08](https://imgur.com/VQZPi04.png)
+
+1. Boss, BossBullet, EnemyGenerator 상호작용 
+
+![Image04](https://imgur.com/bM3kWWB.png)
+
+- EnemyGenerator 클래스에서 wave가 20이 되는 시점에 Boss 객체를 생성한다.
+
+- Boss 클래스의 fireBullet() 함수에서 BossBullet 객체를 4개 생성한다.
+  BossBullet은 가로로 5등분 했을 때 랜덤하게 4개의 구간에서 총알이 발사된다.
+
+2. Heart와 Particle
+
+![Image05](https://imgur.com/OboCGfd.png)
+
+- MainGame 클래스의 initResources() 함수에서 3개의 하트를 추가시킨다.
+- Particle 은 일정한 시간 이후 사라져야 하므로 Particle 클래스의 update() 에서 시간을 재서 지우도록 했다.
+
+
+3. 충돌처리
+
+![Image06](https://imgur.com/wEJNGul.png)
+
+(1) 보스 몬스터의 총알 --> 플레이어 충돌 시점 :  
+
+HitPlayerCount 변수를 두어 몇 번을 맞았는지 Check
+Heart 삭제
+Particle 객체 생성
+
+(2) 플레이어 총알 --> 보스 몬스터 충돌 시점 : 
+
+HitbossCount 변수를 두어 몇 번을 맞았는지 Check
+현재는 플레이어 총알 100발을 맞는 시점에 
+remove(boss)를 하면서 스코어를 100점 올리도록 했다. 
 
 
