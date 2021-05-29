@@ -26,10 +26,17 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
     private int level;
     private float y;
     private int speed;
+    private boolean IsDie = false;
+    private boolean why = false;
+
+    public void setIsDie(boolean IsDie) { this.IsDie = IsDie; }
 
     private Enemy() {
         Log.d(TAG, "Enemy constructor");
     }
+
+    public float getX() { return x; }
+    public float getY() { return y;}
 
     public static Enemy get(int level, int x, int y, int speed) {
         MainGame game = MainGame.get();
@@ -56,8 +63,8 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
     @Override
     public void update() {
         MainGame game = MainGame.get();
-        y += speed * game.frameTime;
 
+        y += speed * game.frameTime;
         if (y > GameView.view.getHeight()) {
             game.remove(this);
         }

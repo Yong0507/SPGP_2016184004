@@ -36,7 +36,7 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
         return item;
     }
 
-    private Item(int type, float x, float y, int speed) {
+    public Item(int type, float x, float y, int speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -44,6 +44,9 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
 
         int resId = RESOURCE_IDS[type - 1];
         this.bitmap = new GameBitmap(resId);
+
+        Random r = new Random();
+        int rand_num = r.nextInt(5) + 1;
     }
 
     private void init(int type, float x, float y, int speed) {
@@ -59,24 +62,22 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
 
     public int getItemtype() { return type - 1; }
 
-    private void AddItem()
-    {
-        MainGame game = MainGame.get();
-        Random r = new Random();
-
-        int rand_type = r.nextInt(2) + 1;
-
-        Item item = Item.get(rand_type, this.x, this.y, 1500);
-        game.add(MainGame.Layer.item, item);
-    }
+//    private void AddItem()
+//    {
+//        MainGame game = MainGame.get();
+//        Random r = new Random();
+//
+//        int rand_type = r.nextInt(2) + 1;
+//
+//        Item item = Item.get(rand_type, this.x, this.y, 1500);
+//        game.add(MainGame.Layer.item, item);
+//    }
 
     @Override
     public void update() {
         MainGame game = MainGame.get();
 
-        AddItem();
-
-        y -= speed * game.frameTime;
+        y += speed * game.frameTime;
 
         if (y > GameView.view.getHeight() || y < 0
                 || x > GameView.view.getWidth() || x < 0) {

@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import kr.ac.kpu.s2016184004.term_project.R;
 import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;
@@ -25,6 +26,7 @@ public class MainGame {
     private Heart heart;
 
     private Particle particle;
+    private Item item;
 
     // 보스 몬스터 데미지
     private int HitbossCount;
@@ -100,6 +102,14 @@ public class MainGame {
         }
     }
 
+    // 무조건 아이템이 나오는 것이 아니라 랜덤한 확률로 아이템이 나오게 됨
+    private int randRate()
+    {
+        Random r = new Random();
+        int rand_num = r.nextInt(4) + 1;
+        return rand_num;
+    }
+
     public void update() {
         for (ArrayList<GameObject> objects : layers) {
             for (GameObject o : objects) {
@@ -125,8 +135,13 @@ public class MainGame {
                     remove(enemy, false);
                     score.addScore(10);
 
+                    // 아이템 생성
+                    randRate();
 
-
+                    if(randRate() == 1) {
+                        item = new Item(1, enemy.getX(), enemy.getY(), 1000);
+                        add(Layer.item, item);
+                    }
 
                     collided = true;
                     break;
@@ -162,6 +177,7 @@ public class MainGame {
                 break;
             }
         }
+
 
         // 플레이어 <-> 보스 몬스터 총알 충돌처리
         for (GameObject o1 : players) {
