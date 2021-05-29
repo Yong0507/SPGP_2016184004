@@ -5,6 +5,7 @@ import android.media.effect.Effect;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -60,7 +61,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, enemy, bossbullet, boss, bullet, player, particle, bg2, ui, heart, controller, ENEMY_COUNT
+        bg1, enemy, bossbullet, boss, bullet, player, particle,item, ui, heart, controller, ENEMY_COUNT
     }
 
     public boolean initResources() {
@@ -108,11 +109,10 @@ public class MainGame {
 
         ArrayList<GameObject> enemies = layers.get(Layer.enemy.ordinal());
         ArrayList<GameObject> bosses = layers.get(Layer.boss.ordinal());
-
         ArrayList<GameObject> player_bullets = layers.get(Layer.bullet.ordinal());
         ArrayList<GameObject> boss_bullets = layers.get(Layer.bossbullet.ordinal());
-
         ArrayList<GameObject> players = layers.get(Layer.player.ordinal());
+        ArrayList<GameObject> items = layers.get(Layer.item.ordinal());
 
         // 일반 몬스터 <-> 플레이어 총알 충돌처리
         for (GameObject o1 : enemies) {
@@ -124,6 +124,10 @@ public class MainGame {
                     remove(player_bullet, false);
                     remove(enemy, false);
                     score.addScore(10);
+
+
+
+
                     collided = true;
                     break;
                 }

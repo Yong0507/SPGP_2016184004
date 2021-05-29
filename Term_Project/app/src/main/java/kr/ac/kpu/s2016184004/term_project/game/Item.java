@@ -3,6 +3,8 @@ package kr.ac.kpu.s2016184004.term_project.game;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import java.util.Random;
+
 import kr.ac.kpu.s2016184004.term_project.R;
 import kr.ac.kpu.s2016184004.term_project.framework.BoxCollidable;
 import kr.ac.kpu.s2016184004.term_project.framework.GameBitmap;
@@ -17,51 +19,63 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
             R.mipmap.heart, R.mipmap.effect,
     };
 
-    private int level;
+    private int type;
     private float x,y;
     private int speed;
     private GameBitmap bitmap;
 
-    public static Item get(int level, float x, float y, int speed) {
+    public static Item get(int type, float x, float y, int speed) {
         MainGame game = MainGame.get();
         Item item = (Item) game.get(Item.class);
 
         if (item == null) {
-            return new Item(level, x, y, speed);
+            return new Item(type, x, y, speed);
         }
 
-        item.init(level, x, y, speed);
+        item.init(type, x, y, speed);
         return item;
     }
 
-    private Item(int level, float x, float y, int speed) {
+    private Item(int type, float x, float y, int speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.level = level;
+        this.type = type;
 
-        int resId = RESOURCE_IDS[level - 1];
+        int resId = RESOURCE_IDS[type - 1];
         this.bitmap = new GameBitmap(resId);
     }
 
-    private void init(int lev, float x, float y, int speed) {
+    private void init(int type, float x, float y, int speed) {
         this.x = x;
         this.y = y;
         this.speed = -speed;
-        this.level = lev;
+        this.type = type;
 
         // 0: coin, 1:DualShot, 2:bullet Level, 3: Life
-        int resId = RESOURCE_IDS[level - 1];
+        int resId = RESOURCE_IDS[type - 1];
         this.bitmap = new GameBitmap(resId);
     }
 
-    public int getLevel() {
-        return level - 1;
+    public int getItemtype() { return type - 1; }
+
+    private void AddItem()
+    {
+        MainGame game = MainGame.get();
+        Random r = new Random();
+
+        int rand_type = r.nextInt(2) + 1;
+
+        Item item = Item.get(rand_type, this.x, this.y, 1500);
+        game.add(MainGame.Layer.item, item);
     }
 
     @Override
     public void update() {
         MainGame game = MainGame.get();
+
+        AddItem();
+
         y -= speed * game.frameTime;
 
         if (y > GameView.view.getHeight() || y < 0
