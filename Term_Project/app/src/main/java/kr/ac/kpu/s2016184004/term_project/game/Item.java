@@ -16,7 +16,7 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
 
     private static final int[] RESOURCE_IDS = {
             // temp image
-            R.mipmap.heart, R.mipmap.effect,
+            R.mipmap.heart, R.mipmap.doublescore, R.mipmap.shield
     };
 
     private int type;

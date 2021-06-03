@@ -106,7 +106,7 @@ public class MainGame {
     private int randRate()
     {
         Random r = new Random();
-        int rand_num = r.nextInt(4) + 1;
+        int rand_num = r.nextInt(100);
         return rand_num;
     }
 
@@ -138,10 +138,22 @@ public class MainGame {
                     // 아이템 생성
                     randRate();
 
-                    if(randRate() == 1) {
+                    if(randRate() <= 10) {
                         item = new Item(1, enemy.getX(), enemy.getY(), 1000);
                         add(Layer.item, item);
                     }
+
+                    else if( 10 < randRate() && randRate()<= 30) {
+                        item = new Item(2,enemy.getX(),enemy.getY(), 1000);
+                        add(Layer.item, item);
+                    }
+
+                    else if ( 30< randRate() && randRate() <= 40) {
+                        item = new Item(3, enemy.getX(), enemy.getY(), 1000);
+                        add(Layer.item, item);
+                    }
+
+
 
                     collided = true;
                     break;
