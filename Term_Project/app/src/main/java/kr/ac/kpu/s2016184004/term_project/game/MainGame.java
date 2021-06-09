@@ -153,8 +153,23 @@ public class MainGame {
                         add(Layer.item, item);
                     }
 
+                    collided = true;
+                    break;
+                }
+            }
+            if (collided) {
+                break;
+            }
+        }
 
-
+        // 플레이어 <-> 아이템 충돌처리
+        for(GameObject o1 : items) {
+            Item item = (Item) o1;
+            boolean collided = false;
+            for(GameObject o2 : players) {
+                Player player = (Player) o2;
+                if(CollisionHelper.collides(item, player)) {
+                    remove(item,false);
                     collided = true;
                     break;
                 }
