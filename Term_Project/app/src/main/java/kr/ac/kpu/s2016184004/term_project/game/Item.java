@@ -55,23 +55,11 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
         this.speed = -speed;
         this.type = type;
 
-        // 0: coin, 1:DualShot, 2:bullet Level, 3: Life
         int resId = RESOURCE_IDS[type - 1];
         this.bitmap = new GameBitmap(resId);
     }
 
     public int getItemtype() { return type - 1; }
-
-//    private void AddItem()
-//    {
-//        MainGame game = MainGame.get();
-//        Random r = new Random();
-//
-//        int rand_type = r.nextInt(2) + 1;
-//
-//        Item item = Item.get(rand_type, this.x, this.y, 1500);
-//        game.add(MainGame.Layer.item, item);
-//    }
 
     @Override
     public void update() {
@@ -96,7 +84,7 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
 
     @Override
     public void recycle() {
-        // 재활용통에 들어가는 시점에 불리는 함수. 현재는 할일없음.
+
     }
 
 }

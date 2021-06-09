@@ -169,16 +169,23 @@ public class MainGame {
             for(GameObject o2 : players) {
                 Player player = (Player) o2;
                 if(CollisionHelper.collides(item, player)) {
+
+                    // 1번 아이템 - 하트
                     if(item.getItemtype() == 0) {
-                        // 하트
+                        if(heart.life_count < 5)
+                            heart.life_count++;
+
                         remove(item, false);
                     }
+
+                    // 2번 아이템 - 더블 스코어
                     if(item.getItemtype() == 1) {
                         // 더블 스코어
                         remove(item, false);
                     }
+
+                    // 3번 아이템 - 무적
                     if(item.getItemtype() == 2) {
-                        // 무적
                         remove(item, false);
                     }
 
@@ -217,7 +224,6 @@ public class MainGame {
             }
         }
 
-
         // 플레이어 <-> 보스 몬스터 총알 충돌처리
         for (GameObject o1 : players) {
             Player player = (Player) o1;
@@ -240,6 +246,31 @@ public class MainGame {
                     break;
                 }
                 if (collided) {
+                    break;
+                }
+            }
+        }
+
+        // 플레이어 <-> 일반 몬스터 충돌처리
+        for (GameObject o1 : players) {
+            Player player = (Player) o1;
+            boolean collided = false;
+            for(GameObject o2 : enemies) {
+                Enemy enemy = (Enemy) o2;
+                if(CollisionHelper.collides(player, enemy)) {
+                    remove(enemy, false);
+
+                    particle = new Particle((int)player.getX() - 120, (int)player.getY() - 180);
+                    add(Layer.particle, particle);
+
+                    heart.life_count --;
+                    if(heart.life_count == 0)
+                        remove(player, false);
+
+                    collided = true;
+                    break;
+                }
+                if(collided){
                     break;
                 }
             }
