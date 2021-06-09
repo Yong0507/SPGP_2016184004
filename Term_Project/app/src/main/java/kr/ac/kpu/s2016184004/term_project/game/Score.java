@@ -15,12 +15,20 @@ public class Score implements GameObject {
     private final int right;
     private final int top;
 
+    private int doubleScore;
+    private static final float INITIAL_DOBULE_SCORE = 15.0f;
+    private float time;
+    private float double_time;
+
     public void setScore(int score) {
         this.score = score;
         this.displayScore = score;
     }
+
+    public void setDouble(int _doubleScore) { doubleScore =_doubleScore;}
+
     public void addScore(int amount) {
-        this.score += amount;
+        this.score += (amount * doubleScore);
     }
 
     private int score, displayScore;
@@ -31,11 +39,21 @@ public class Score implements GameObject {
         bitmap = GameBitmap.load(R.mipmap.number_24x32);
         this.right = right;
         this.top = top;
+
+        time = INITIAL_DOBULE_SCORE;
+        double_time = INITIAL_DOBULE_SCORE;
     }
     @Override
     public void update() {
         if (displayScore < score) {
             displayScore++;
+        }
+
+        MainGame game = MainGame.get();
+        time += game.frameTime;
+        if (time >= double_time) {
+            doubleScore = 1;
+            time -= double_time;
         }
     }
 

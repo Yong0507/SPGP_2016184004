@@ -70,6 +70,7 @@ public class MainGame {
         if (initialized) {
             return false;
         }
+
         int w = GameView.view.getWidth();
         int h = GameView.view.getHeight();
 
@@ -182,6 +183,8 @@ public class MainGame {
                     if(item.getItemtype() == 1) {
                         // 더블 스코어
                         remove(item, false);
+
+                        score.setDouble(2);
                     }
 
                     // 3번 아이템 - 무적
