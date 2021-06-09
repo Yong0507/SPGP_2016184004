@@ -29,12 +29,15 @@ public class MainGame {
     private Item item;
 
     // 보스 몬스터 데미지
-    private int HitbossCount;
+    private int Hitboss1Count;
+    private int Hitboss2Count;
     private int HitplayerCount;
 
     // 무적 상태
     private boolean invincible;
     private float invincible_time;
+
+    private boolean boss1_dead = false;
 
     public static MainGame get() {
         if (instance == null) {
@@ -43,8 +46,8 @@ public class MainGame {
         return instance;
     }
 
-    public void setInvincible(boolean _invincible) { invincible = _invincible; }
-    public boolean getInvincible() {return invincible;}
+    public boolean getBoss1Dead() {return boss1_dead; }
+    public void setBoss1Dead(boolean _boss1_dead) { boss1_dead = _boss1_dead; }
 
     public float frameTime;
     private boolean initialized;
@@ -129,10 +132,13 @@ public class MainGame {
 
         ArrayList<GameObject> enemies = layers.get(Layer.enemy.ordinal());
         ArrayList<GameObject> bosses = layers.get(Layer.boss.ordinal());
-        ArrayList<GameObject> player_bullets = layers.get(Layer.bullet.ordinal());
         ArrayList<GameObject> boss_bullets = layers.get(Layer.bossbullet.ordinal());
+        ArrayList<GameObject> bosses2 = layers.get(Layer.cracon.ordinal());
+        ArrayList<GameObject> boss_missiles = layers.get(Layer.craconmissile.ordinal());
+        ArrayList<GameObject> player_bullets = layers.get(Layer.bullet.ordinal());
         ArrayList<GameObject> players = layers.get(Layer.player.ordinal());
         ArrayList<GameObject> items = layers.get(Layer.item.ordinal());
+
 
         // 일반 몬스터 <-> 플레이어 총알 충돌처리
         for (GameObject o1 : enemies) {
@@ -153,12 +159,12 @@ public class MainGame {
                         add(Layer.item, item);
                     }
 
-                    else if( 10 < randRate() && randRate()<= 30) {
+                    else if( 10 < randRate() && randRate()<= 20) {
                         item = new Item(2,enemy.getX(),enemy.getY(), 1000);
                         add(Layer.item, item);
                     }
 
-                    else if ( 30< randRate() && randRate() <= 40) {
+                    else if ( 20 < randRate() && randRate() <= 35) {
                         item = new Item(3, enemy.getX(), enemy.getY(), 1000);
                         add(Layer.item, item);
                     }
@@ -210,7 +216,7 @@ public class MainGame {
             }
         }
 
-        // 보스 몬스터 <-> 플레이어 총알 충돌처리
+        // 보스 몬스터1 <-> 플레이어 총알 충돌처리
         for (GameObject o1 : bosses) {
             Boss boss = (Boss) o1;
             boolean collided = false;
@@ -219,10 +225,37 @@ public class MainGame {
                 if (CollisionHelper.collides(boss, player_bullet)) {
                     remove(player_bullet, false);
 
-                    HitbossCount++;
-                    if(HitbossCount > 100) {
+                    Hitboss1Count++;
+                    if(Hitboss1Count > 100) {
+                        boss1_dead = true;
                         remove(boss, false);
-                        score.addScore(100);
+                        score.addScore(150);
+                        collided = true;
+                        break;
+                    }
+
+                    collided = true;
+                    break;
+                }
+            }
+            if (collided) {
+                break;
+            }
+        }
+
+        // 보스 몬스터2 <-> 플레이어 총알 충돌처리
+        for (GameObject o1 : bosses2) {
+            Cracon cracon = (Cracon) o1;
+            boolean collided = false;
+            for (GameObject o2 : player_bullets) {
+                Bullet player_bullet = (Bullet) o2;
+                if (CollisionHelper.collides(cracon, player_bullet)) {
+                    remove(player_bullet, false);
+
+                    Hitboss2Count++;
+                    if(Hitboss2Count > 150) {
+                        remove(cracon, false);
+                        score.addScore(300);
                         collided = true;
                         break;
                     }
@@ -237,7 +270,7 @@ public class MainGame {
         }
 
 
-        // 플레이어 <-> 보스 몬스터 총알 충돌처리
+        // 플레이어 <-> 보스 몬스터1 총알 충돌처리
         if(!invincible) {
             for (GameObject o1 : players) {
                 Player player = (Player) o1;
@@ -266,6 +299,36 @@ public class MainGame {
             }
         }
 
+        // 플레이어 <-> 보스 몬스터2 총알 충돌처리
+        if(!invincible) {
+            for (GameObject o1 : players) {
+                Player player = (Player) o1;
+                boolean collided = false;
+                for (GameObject o2 : boss_missiles) {
+                    CraconMissile cracon_missile = (CraconMissile) o2;
+                    if (CollisionHelper.collides(player, cracon_missile)) {
+                        remove(cracon_missile);
+
+                        particle = new Particle((int) player.getX() - 120, (int) player.getY() - 180);
+                        add(Layer.particle, particle);
+
+                        HitplayerCount++;
+                        heart.life_count--;
+
+                        if (heart.life_count == 0)
+                            remove(player, false);
+
+                        collided = true;
+                        break;
+                    }
+                    if (collided) {
+                        break;
+                    }
+                }
+            }
+        }
+
+
         // 플레이어 <-> 일반 몬스터 충돌처리
         if(!invincible) {
             for (GameObject o1 : players) {
@@ -280,8 +343,9 @@ public class MainGame {
                         add(Layer.particle, particle);
 
                         heart.life_count--;
-                        if (heart.life_count == 0)
+                        if (heart.life_count == 0) {
                             remove(player, false);
+                        }
 
                         collided = true;
                         break;
@@ -295,9 +359,9 @@ public class MainGame {
 
         if(invincible == true) {
             invincible_time += frameTime;
-            if (invincible_time >= 5.f) {
+            if (invincible_time >= 3.5f) {
                 invincible = false;
-                invincible_time -= 5.f;
+                invincible_time -= 3.5f;
             }
         }
 

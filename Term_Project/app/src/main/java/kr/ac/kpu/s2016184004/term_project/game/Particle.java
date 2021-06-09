@@ -11,12 +11,13 @@ public class Particle implements GameObject {
     private final Bitmap bitmap;
     private final int x;
     private final int y;
-    private int time;
+    private float time;
 
     public Particle(int x, int y) {
         bitmap = GameBitmap.load(R.mipmap.effect);
         this.x = x;
         this.y = y;
+        time = 0.f;
     }
 
     @Override
@@ -27,9 +28,14 @@ public class Particle implements GameObject {
     @Override
     public void update() {
         MainGame game = MainGame.get();
-        time ++;
 
-        if(time > 10)
+        time += game.frameTime;
+        if(time >= 0.1f ) {
             game.remove(this);
+        }
+//        time ++;
+
+//        if(time > 10)
+//            game.remove(this);
     }
 }

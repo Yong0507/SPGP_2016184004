@@ -78,15 +78,6 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
                 || x > GameView.view.getWidth() || x < 0) {
             game.remove(this);
         }
-
-//        if(game.getInvincible() == true)
-//        {
-//            time += game.frameTime;
-//            if (time >= invincible_time) {
-//                game.setInvincible(false);
-//                time -= invincible_time;
-//            }
-//        }
     }
 
     public void draw(Canvas canvas) {
