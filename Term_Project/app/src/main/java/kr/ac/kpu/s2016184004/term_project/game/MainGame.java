@@ -32,12 +32,19 @@ public class MainGame {
     private int HitbossCount;
     private int HitplayerCount;
 
+    // 무적 상태
+    private boolean invincible;
+    private float invincible_time;
+
     public static MainGame get() {
         if (instance == null) {
             instance = new MainGame();
         }
         return instance;
     }
+
+    public void setInvincible(boolean _invincible) { invincible = _invincible; }
+    public boolean getInvincible() {return invincible;}
 
     public float frameTime;
     private boolean initialized;
@@ -70,6 +77,8 @@ public class MainGame {
         if (initialized) {
             return false;
         }
+
+        invincible = false;
 
         int w = GameView.view.getWidth();
         int h = GameView.view.getHeight();
@@ -181,15 +190,15 @@ public class MainGame {
 
                     // 2번 아이템 - 더블 스코어
                     if(item.getItemtype() == 1) {
-                        // 더블 스코어
                         remove(item, false);
-
                         score.setDouble(2);
                     }
 
                     // 3번 아이템 - 무적
                     if(item.getItemtype() == 2) {
                         remove(item, false);
+                        invincible = true;
+                        invincible_time = 0f;
                     }
 
                     collided = true;
@@ -227,57 +236,72 @@ public class MainGame {
             }
         }
 
+
         // 플레이어 <-> 보스 몬스터 총알 충돌처리
-        for (GameObject o1 : players) {
-            Player player = (Player) o1;
-            boolean collided = false;
-            for(GameObject o2 : boss_bullets) {
-                BossBullet boss_bullet = (BossBullet) o2;
-                if (CollisionHelper.collides(player, boss_bullet)) {
-                    remove(boss_bullet);
+        if(!invincible) {
+            for (GameObject o1 : players) {
+                Player player = (Player) o1;
+                boolean collided = false;
+                for (GameObject o2 : boss_bullets) {
+                    BossBullet boss_bullet = (BossBullet) o2;
+                    if (CollisionHelper.collides(player, boss_bullet)) {
+                        remove(boss_bullet);
 
-                    particle = new Particle((int)player.getX() - 120, (int)player.getY() - 180);
-                    add(Layer.particle, particle);
+                        particle = new Particle((int) player.getX() - 120, (int) player.getY() - 180);
+                        add(Layer.particle, particle);
 
-                    HitplayerCount ++;
-                    heart.life_count --;
+                        HitplayerCount++;
+                        heart.life_count--;
 
-                    if(heart.life_count == 0)
-                        remove(player, false);
+                        if (heart.life_count == 0)
+                            remove(player, false);
 
-                    collided = true;
-                    break;
-                }
-                if (collided) {
-                    break;
+                        collided = true;
+                        break;
+                    }
+                    if (collided) {
+                        break;
+                    }
                 }
             }
         }
 
         // 플레이어 <-> 일반 몬스터 충돌처리
-        for (GameObject o1 : players) {
-            Player player = (Player) o1;
-            boolean collided = false;
-            for(GameObject o2 : enemies) {
-                Enemy enemy = (Enemy) o2;
-                if(CollisionHelper.collides(player, enemy)) {
-                    remove(enemy, false);
+        if(!invincible) {
+            for (GameObject o1 : players) {
+                Player player = (Player) o1;
+                boolean collided = false;
+                for (GameObject o2 : enemies) {
+                    Enemy enemy = (Enemy) o2;
+                    if (CollisionHelper.collides(player, enemy)) {
+                        remove(enemy, false);
 
-                    particle = new Particle((int)player.getX() - 120, (int)player.getY() - 180);
-                    add(Layer.particle, particle);
+                        particle = new Particle((int) player.getX() - 120, (int) player.getY() - 180);
+                        add(Layer.particle, particle);
 
-                    heart.life_count --;
-                    if(heart.life_count == 0)
-                        remove(player, false);
+                        heart.life_count--;
+                        if (heart.life_count == 0)
+                            remove(player, false);
 
-                    collided = true;
-                    break;
-                }
-                if(collided){
-                    break;
+                        collided = true;
+                        break;
+                    }
+                    if (collided) {
+                        break;
+                    }
                 }
             }
         }
+
+        if(invincible == true) {
+            invincible_time += frameTime;
+            if (invincible_time >= 5.f) {
+                invincible = false;
+                invincible_time -= 5.f;
+            }
+        }
+
+
     }
 
     public void draw(Canvas canvas) {

@@ -57,7 +57,7 @@ public class EnemyGenerator implements GameObject {
             game.add(MainGame.Layer.enemy, enemy);
         }
         // Boss 생성되는 시점
-        if(wave == 100)
+        if(wave == 3)
         {
             int x = GameView.view.getWidth() / 2;
             int y = 200;

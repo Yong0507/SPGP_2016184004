@@ -19,6 +19,10 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
             R.mipmap.heart, R.mipmap.doublescore, R.mipmap.shield
     };
 
+    private static final float INITIAL_INVINCIBLE = 30.0f;
+    private float time;
+    private float invincible_time;
+
     private int type;
     private float x,y;
     private int speed;
@@ -47,6 +51,9 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
 
         Random r = new Random();
         int rand_num = r.nextInt(5) + 1;
+
+        time = INITIAL_INVINCIBLE;
+        invincible_time = INITIAL_INVINCIBLE;
     }
 
     private void init(int type, float x, float y, int speed) {
@@ -71,6 +78,15 @@ public class Item implements GameObject, BoxCollidable, Recyclable {
                 || x > GameView.view.getWidth() || x < 0) {
             game.remove(this);
         }
+
+//        if(game.getInvincible() == true)
+//        {
+//            time += game.frameTime;
+//            if (time >= invincible_time) {
+//                game.setInvincible(false);
+//                time -= invincible_time;
+//            }
+//        }
     }
 
     public void draw(Canvas canvas) {
