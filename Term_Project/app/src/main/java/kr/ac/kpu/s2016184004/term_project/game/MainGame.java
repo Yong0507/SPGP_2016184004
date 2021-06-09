@@ -169,7 +169,19 @@ public class MainGame {
             for(GameObject o2 : players) {
                 Player player = (Player) o2;
                 if(CollisionHelper.collides(item, player)) {
-                    remove(item,false);
+                    if(item.getItemtype() == 0) {
+                        // 하트
+                        remove(item, false);
+                    }
+                    if(item.getItemtype() == 1) {
+                        // 더블 스코어
+                        remove(item, false);
+                    }
+                    if(item.getItemtype() == 2) {
+                        // 무적
+                        remove(item, false);
+                    }
+
                     collided = true;
                     break;
                 }
