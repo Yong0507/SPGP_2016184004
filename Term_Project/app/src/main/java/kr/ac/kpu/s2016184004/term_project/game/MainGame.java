@@ -70,7 +70,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, enemy, bossbullet, boss, bullet, player, particle,item, ui, heart, controller, ENEMY_COUNT
+        bg1, enemy, bossbullet, boss, cracon, craconmissile, bullet, player, particle,item, ui, heart, controller, ENEMY_COUNT
     }
 
     public boolean initResources() {

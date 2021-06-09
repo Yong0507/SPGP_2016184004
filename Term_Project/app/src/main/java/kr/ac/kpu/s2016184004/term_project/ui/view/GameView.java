@@ -1,6 +1,8 @@
 package kr.ac.kpu.s2016184004.term_project.ui.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -21,19 +23,15 @@ public class GameView extends View {
 
     public static float MULTIPLIER = 2;
     private boolean running;
-    //    private Ball b1, b2;
 
     private long lastFrame;
     public static GameView view;
-
-    private EnemyGenerator enemyGenerator;
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         GameView.view = this;
         Sound.init(context);
         running = true;
-//        startUpdating();
     }
 
     @Override
