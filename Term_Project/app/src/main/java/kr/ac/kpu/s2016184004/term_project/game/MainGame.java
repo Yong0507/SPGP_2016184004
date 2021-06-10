@@ -27,6 +27,8 @@ public class MainGame {
 
     private Particle particle;
     private Item item;
+    private Itemeffect itemeffect;
+    private invincible invin;
 
     // 보스 몬스터 데미지
     private int Hitboss1Count;
@@ -73,7 +75,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, enemy, bossbullet, boss, cracon, craconmissile, bullet, player, particle,item, ui, heart, controller, ENEMY_COUNT
+        bg1, enemy, bossbullet, boss, cracon, craconmissile, bullet, player, particle,item, itemeffect,invin, ui, heart, controller, ENEMY_COUNT
     }
 
     public boolean initResources() {
@@ -100,6 +102,12 @@ public class MainGame {
 
         heart = new Heart(100,60);
         add(Layer.heart, heart);
+
+        itemeffect = new Itemeffect(100,100);
+        add(Layer.itemeffect,itemeffect);
+
+        invin = new invincible(100, 100);
+        add(Layer.invin, invin);
 
         VerticalScrollBackground bg = new VerticalScrollBackground(R.mipmap.bg_grass, 10);
         add(Layer.bg1, bg);
@@ -139,7 +147,8 @@ public class MainGame {
         ArrayList<GameObject> player_bullets2 = layers.get(Layer.bullet.ordinal());
         ArrayList<GameObject> players = layers.get(Layer.player.ordinal());
         ArrayList<GameObject> items = layers.get(Layer.item.ordinal());
-
+        ArrayList<GameObject> item_effects = layers.get(Layer.itemeffect.ordinal());
+        ArrayList<GameObject> invins = layers.get(Layer.invin.ordinal());
 
         // 일반 몬스터 <-> 플레이어 총알 충돌처리
         for (GameObject o1 : enemies) {
@@ -197,6 +206,8 @@ public class MainGame {
 
                     // 2번 아이템 - 더블 스코어
                     if(item.getItemtype() == 1) {
+                        itemeffect.is_double = 1;
+
                         remove(item, false);
                         score.setDouble(2);
                     }
@@ -359,13 +370,20 @@ public class MainGame {
         }
 
         if(invincible == true) {
+            invin.invin = 1;
+            invin.x = player.getX() - 200;
+            invin.y = player.getY() - 160;
             invincible_time += frameTime;
             if (invincible_time >= 3.5f) {
                 invincible = false;
+                invin.invin = 0;
                 invincible_time -= 3.5f;
             }
         }
 
+
+        if(score.getDouble() == 1)
+            itemeffect.is_double = 0;
 
     }
 

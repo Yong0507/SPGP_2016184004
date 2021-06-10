@@ -25,6 +25,7 @@ public class Score implements GameObject {
         this.displayScore = score;
     }
 
+    public int getDouble() {return doubleScore;}
     public void setDouble(int _doubleScore) { doubleScore =_doubleScore;}
 
     public void addScore(int amount) {
