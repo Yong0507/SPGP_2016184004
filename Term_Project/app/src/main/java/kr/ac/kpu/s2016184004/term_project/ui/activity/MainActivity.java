@@ -2,14 +2,18 @@ package kr.ac.kpu.s2016184004.term_project.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import kr.ac.kpu.s2016184004.term_project.R;
+import kr.ac.kpu.s2016184004.term_project.framework.BGSound;
 import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -23,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Density: " + metrics.density + " DPI:" + metrics.densityDpi + " Multiplier:" + GameView.MULTIPLIER);
     }
 
+
     @Override
-        protected void onPause() {
+    protected void onPause() {
         GameView.view.pauseGame();
         super.onPause();
     }

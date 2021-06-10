@@ -14,7 +14,7 @@ import kr.ac.kpu.s2016184004.term_project.ui.view.GameView;
 
 public class Cracon implements GameObject, BoxCollidable {
     private static final String TAG = Cracon.class.getSimpleName();
-    private static final float FIRE_INTERVAL = 1.0f;
+    private static final float FIRE_INTERVAL = 0.6f;
 
     private float fireTime;
     private float x, y;

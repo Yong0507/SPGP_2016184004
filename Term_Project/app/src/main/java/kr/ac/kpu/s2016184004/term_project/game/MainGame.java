@@ -136,6 +136,7 @@ public class MainGame {
         ArrayList<GameObject> bosses2 = layers.get(Layer.cracon.ordinal());
         ArrayList<GameObject> boss_missiles = layers.get(Layer.craconmissile.ordinal());
         ArrayList<GameObject> player_bullets = layers.get(Layer.bullet.ordinal());
+        ArrayList<GameObject> player_bullets2 = layers.get(Layer.bullet.ordinal());
         ArrayList<GameObject> players = layers.get(Layer.player.ordinal());
         ArrayList<GameObject> items = layers.get(Layer.item.ordinal());
 
@@ -226,7 +227,7 @@ public class MainGame {
                     remove(player_bullet, false);
 
                     Hitboss1Count++;
-                    if(Hitboss1Count > 100) {
+                    if(Hitboss1Count == 100) {
                         boss1_dead = true;
                         remove(boss, false);
                         score.addScore(150);
@@ -247,19 +248,19 @@ public class MainGame {
         for (GameObject o1 : bosses2) {
             Cracon cracon = (Cracon) o1;
             boolean collided = false;
-            for (GameObject o2 : player_bullets) {
+            for (GameObject o2 : player_bullets2) {
                 Bullet player_bullet = (Bullet) o2;
                 if (CollisionHelper.collides(cracon, player_bullet)) {
                     remove(player_bullet, false);
 
                     Hitboss2Count++;
-                    if(Hitboss2Count > 150) {
+                    if(Hitboss2Count == 150) {
                         remove(cracon, false);
                         score.addScore(300);
                         collided = true;
                         break;
                     }
-
+//
                     collided = true;
                     break;
                 }
