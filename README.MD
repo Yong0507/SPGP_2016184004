@@ -15,7 +15,7 @@
 ---------			
 개발 계획/일정/실제 진행
 ---------
-![Image02](https://imgur.com/ple0p3B.png)
+![Image02](https://imgur.com/vH2QktF.png)
 사운드 부분은 안드로이드 스튜디오에서 res/raw 경로안에 mp3 파일을 인식하지 못하는 에러로 인해 진행하지 못했고
 Scene 전환 부분은 제작하지 못했습니다.  
 
