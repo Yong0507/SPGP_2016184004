@@ -75,7 +75,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, enemy, bossbullet, boss, cracon, craconmissile, bullet, player, particle,item, itemeffect,invin, ui, heart, controller, ENEMY_COUNT
+        bg1, enemy, bossbullet, boss, cracon, craconmissile, bullet, player, particle,item, itemeffect,invin, ui, heart, controller, bg2, bg3, ENEMY_COUNT,
     }
 
     public boolean initResources() {
@@ -268,6 +268,11 @@ public class MainGame {
                     if(Hitboss2Count == 150) {
                         remove(cracon, false);
                         score.addScore(300);
+
+                        VerticalScrollBackground ending = new VerticalScrollBackground(R.mipmap.win,0);
+                        add(Layer.bg3,ending);
+
+
                         collided = true;
                         break;
                     }
@@ -298,9 +303,12 @@ public class MainGame {
                         HitplayerCount++;
                         heart.life_count--;
 
-                        if (heart.life_count == 0)
+                        if (heart.life_count == 0) {
                             remove(player, false);
 
+                            VerticalScrollBackground ending = new VerticalScrollBackground(R.mipmap.lose,0);
+                            add(Layer.bg2,ending);
+                        }
                         collided = true;
                         break;
                     }
@@ -327,8 +335,12 @@ public class MainGame {
                         HitplayerCount++;
                         heart.life_count--;
 
-                        if (heart.life_count == 0)
+                        if (heart.life_count == 0) {
                             remove(player, false);
+
+                            VerticalScrollBackground ending = new VerticalScrollBackground(R.mipmap.lose,0);
+                            add(Layer.bg2,ending);
+                        }
 
                         collided = true;
                         break;
@@ -357,6 +369,9 @@ public class MainGame {
                         heart.life_count--;
                         if (heart.life_count == 0) {
                             remove(player, false);
+
+                            VerticalScrollBackground ending = new VerticalScrollBackground(R.mipmap.lose,0);
+                            add(Layer.bg2,ending);
                         }
 
                         collided = true;
