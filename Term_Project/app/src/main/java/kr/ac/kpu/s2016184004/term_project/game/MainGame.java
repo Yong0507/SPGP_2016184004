@@ -267,16 +267,11 @@ public class MainGame {
                     Hitboss2Count++;
                     if(Hitboss2Count == 150) {
                         remove(cracon, false);
-                        score.addScore(300);
 
                         VerticalScrollBackground ending = new VerticalScrollBackground(R.mipmap.win,0);
                         add(Layer.bg3,ending);
-
-
-                        collided = true;
-                        break;
                     }
-//
+
                     collided = true;
                     break;
                 }
